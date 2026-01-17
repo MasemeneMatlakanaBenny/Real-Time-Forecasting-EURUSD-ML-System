@@ -112,3 +112,5 @@ def transformation_workflow():
 
     df.to_csv("data/transformed_df.csv",index=False)
     
+if __name__=="__main__":
+    transformation_workflow()
