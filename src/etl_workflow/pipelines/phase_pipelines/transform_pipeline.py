@@ -1,1 +1,94 @@
+import pandas as pd
+import numpy as np
+from prefect import task,flow
+
+def get_extracted_df(path:str)->pd.DataFrame:
+    """
+    Docstring for get_extracted_df
+    
+    :param path: path for the extracted data
+    :type path: str
+    :return: return the extracted dataframe
+    :rtype: DataFrame
+    """
+    df=pd.read_csv(path)
+
+    return df
+
+def drop_index_column(df:pd.DataFrame)->pd.DataFrame:
+    """
+    Docstring for drop_index_column
+    
+    :param df: extracted dataframe
+    :type df: pd.DataFrame
+    :return: return the dataframe but now with renamed column names
+    :rtype: DataFrame
+    """
+    ## start first with the index column:
+    df.columns = df.columns.droplevel(1)
+
+    ## reset the index for the dataframe:
+    df=df.reset_index()
+
+    return df
+
+def convert_datetime_column(df:pd.DataFrame)->pd.DataFrame:
+    """
+    Docstring for convert_datetime_column
+    
+    :param df: the extracted dataframe
+    :type df: pd.DataFrame
+    :return: the intial dataframe but now with Datetime using Johannesburg timezone
+    :rtype: DataFrame
+    """
+    ## convert the datetime timezone from UCT to South African timezone:
+    df['Datetime'] = df['Datetime'].dt.tz_convert('Africa/Johannesburg')
+
+    return df
+
+
+def calculate_pair_pips(df:pd.DataFrame)->pd.DataFrame:
+    """
+    Docstring for calculate_pair_pips
+    
+    :param df: Description
+    :type df: pd.DataFrame
+    :return: Description
+    :rtype: DataFrame
+    """
+    df['high_decimal_int'] = (
+    df['High']
+      .astype(str)
+      .str.split('.')
+      .str[1]
+      .str[:6]                    # keep only first 6 digits
+      .str.pad(width=6, side='right', fillchar='0')  # pad if shorter
+      .astype(int)
+      )
+    
+    df['low_decimal_int'] = (
+    df['Low']
+      .astype(str)
+      .str.split('.')
+      .str[1]
+      .str[:6]                    # keep only first 6 digits
+      .str.pad(width=6, side='right', fillchar='0')  # pad if shorter
+      .astype(int)
+      )
+    
+    df['Pips']=np.abs(df['high_decimal_int']-df['low_decimal_int'])
+
+    return df
+
+def remove_zero_pips_days(df:pd.DataFrame)->pd.DataFrame:
+    """
+    Docstring for remove_zero_pips_days
+    
+    :param df: Description
+    :type df: pd.DataFrame
+    :return: Description
+    :rtype: DataFrame
+    """
+    df=df[df['Pips']>0]
+
 
