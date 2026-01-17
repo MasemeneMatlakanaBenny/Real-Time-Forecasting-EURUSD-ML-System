@@ -95,4 +95,20 @@ def remove_zero_pips_days(df:pd.DataFrame)->pd.DataFrame:
     """
     df=df[df['Pips']>0]
 
+@flow
+def transformation_workflow():
+    """"
+    """
 
+    df=get_extracted_df(path="data/extracted_df.csv")
+
+    df=drop_index_column(df=df)
+
+    df=convert_datetime_column(df=df)
+
+    df=calculate_pair_pips(df=df)
+
+    df=remove_zero_pips_days(df=df)
+
+    df.to_csv("data/transformed_df.csv",index=False)
+    
