@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from prefect import task,flow
 
+@task
 def get_extracted_df(path:str)->pd.DataFrame:
     """
     Docstring for get_extracted_df
@@ -14,7 +15,8 @@ def get_extracted_df(path:str)->pd.DataFrame:
     df=pd.read_csv(path)
 
     return df
-
+    
+@task
 def drop_index_column(df:pd.DataFrame)->pd.DataFrame:
     """
     Docstring for drop_index_column
@@ -32,6 +34,7 @@ def drop_index_column(df:pd.DataFrame)->pd.DataFrame:
 
     return df
 
+@task
 def convert_datetime_column(df:pd.DataFrame)->pd.DataFrame:
     """
     Docstring for convert_datetime_column
@@ -46,7 +49,7 @@ def convert_datetime_column(df:pd.DataFrame)->pd.DataFrame:
 
     return df
 
-
+@task
 def calculate_pair_pips(df:pd.DataFrame)->pd.DataFrame:
     """
     Docstring for calculate_pair_pips
@@ -80,6 +83,7 @@ def calculate_pair_pips(df:pd.DataFrame)->pd.DataFrame:
 
     return df
 
+@task
 def remove_zero_pips_days(df:pd.DataFrame)->pd.DataFrame:
     """
     Docstring for remove_zero_pips_days
