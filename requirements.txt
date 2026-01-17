@@ -1,1 +1,13 @@
-
+yfinance
+numpy
+pandas 
+matplotlib
+statsmodels
+scikit-learn
+mlforecast
+hopsworks
+prefect
+mlflow
+kubeflow
+hsml
+deepchecks
