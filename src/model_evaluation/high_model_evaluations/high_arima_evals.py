@@ -4,7 +4,7 @@ import joblib
 from lib.configs import compute_model_metrics
 
 ## load the model first:
-model=joblib.load("models/low_models/low_arima_model.pkl")
+model=joblib.load("models/low_models/high_arima_model.pkl")
 
 ## get the forecasts:
 df=pd.read_csv("data/transformed_df.csv")
@@ -18,4 +18,4 @@ forecasts=model.forecast(test_len)
 ## compute the model metrics:
 metrics=compute_model_metrics(y_true=forecasts,y_preds=forecasts)
 
-joblib.dump(metrics,"metrics/low_metrics/low_arima_metrics.pkl")
+joblib.dump(metrics,"metrics/high_metrics/high_arima_metrics.pkl")
