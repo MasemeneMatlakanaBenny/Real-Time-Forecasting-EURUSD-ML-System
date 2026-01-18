@@ -12,3 +12,4 @@ kubeflow
 hsml
 deepchecks
 dotenv
+xgboost
