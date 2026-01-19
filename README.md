@@ -16,7 +16,7 @@ Tools and libraries used for the workflow are found under the requirements.txt f
 
 The structure of the project can be seen in the below image:
 
-![LIB](images/STRUCTURE/Structure.png)
+![LIB](images/STRUCTURE_IMAGES/Structure.png)
 
 We have the lib folder which is where software engineering is executed. Libraries and Modules are designed specifically meant for the project in order to maintain reusability and modularity. 
 Hence we aim to apply software engineering concepts first to optimize code performance and resource optimizations on our local machines. For each of the phases in the workflow ,there is a specific module designed for it in the lib folder hence modularity has been applied as said before. We break down components that are reusable into smaller parts that can be imported over and over again.
