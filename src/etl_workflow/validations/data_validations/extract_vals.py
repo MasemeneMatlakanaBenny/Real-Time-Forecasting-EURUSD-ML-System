@@ -31,4 +31,4 @@ expectations:List[ExpectationConfiguration]=[volume_min_exp,volume_max_exp,open_
 results_df=validate_expectations(batch=batch,expectations=expectations,exp_labels=exp_labels)
 
 ## save the df to a csv format:
-results_df.to_csv("data_quality_checks/extract_checks_df.csv")
+results_df.to_csv("data_quality_checks/extract_checks_df.csv",index=False)
